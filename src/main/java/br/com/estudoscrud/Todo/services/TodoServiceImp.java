@@ -35,12 +35,21 @@ public class TodoServiceImp implements TodoService{
 
     @Override
     public void updateTodo(Long id, Todo todo) {
-
+        //recebe um objeto como parametro, cria um novo objeto puxando do banco com base no id
+        //'seta' os novos atributos do objeto vindodo banco usando as informações
+        //do objeto recebido no parametro
+        //logo em seguida salva o objeto no banco
+        Todo todoFromDb = todoRepository.findById(id).get();
+        System.out.println(todoFromDb.toString());
+        todoFromDb.setTodoStatus(todo.getTodoStatus());
+        todoFromDb.setDescription(todo.getDescription());
+        todoFromDb.setTitle(todo.getTitle());
+        todoRepository.save(todoFromDb);
     }
 
     @Override
     public void deleteTodo(Long todoId) {
-
+        todoRepository.deleteById(todoId);
     }
 
 }
